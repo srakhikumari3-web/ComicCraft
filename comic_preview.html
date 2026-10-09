@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} • ComicCraft{% endblock %}
+{% block content %}
+<div class="preview-head">
+  <div><p class="eyebrow">YOUR GENERATED COMIC</p><h1>{{ title }}</h1></div>
+  <div class="actions"><a class="secondary" href="/">Create Another</a><a class="primary inline" href="{{ pdf_url }}" download>⬇ Download Your Comic as PDF</a></div>
+</div>
+
+<div class="comic-list">
+{% for panel in layout %}
+<article class="comic-panel card">
+  <div class="panel-title"><span>Panel {{ panel.panel_number }}</span><h2>{{ panel.title }}</h2></div>
+  <img src="{{ panel.image_path }}" alt="{{ panel.title }}" loading="lazy">
+  <p class="scene"><em>{{ panel.scene_description }}</em></p>
+  <div class="story-box">
+    <p><strong>Caption:</strong> {{ panel.caption }}</p>
+    <p><strong>Narration:</strong> {{ panel.narration }}</p>
+    {% if panel.dialogue %}<div><strong>Dialogue:</strong><ul>{% for line in panel.dialogue %}<li>{{ line }}</li>{% endfor %}</ul></div>{% endif %}
+  </div>
+  <details><summary>Image prompt reference</summary><p>{{ panel.image_prompt }}</p></details>
+</article>
+{% endfor %}
+</div>
+<div class="center"><a class="primary inline" href="{{ pdf_url }}" download>⬇ Download Your Comic as PDF</a></div>
+{% endblock %}

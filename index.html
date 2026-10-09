@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Create a Comic • ComicCraft{% endblock %}
+{% block content %}
+<section class="hero">
+  <div>
+    <p class="eyebrow">AI-POWERED STORYTELLING</p>
+    <h1>Turn an idea into a <span>five-panel comic.</span></h1>
+    <p class="lead">Describe your story, character, world, tone and art style. ComicCraft generates the outline, narration, illustrations and PDF.</p>
+  </div>
+</section>
+
+{% if error %}<div class="alert error">{{ error }}</div>{% endif %}
+
+<form class="card form-card" method="post" action="/generate" onsubmit="showLoading(this)">
+  <label>Story Prompt
+    <textarea name="story_prompt" maxlength="2000" required placeholder="A brave fox explores an enchanted forest and discovers a forgotten moon temple."></textarea>
+  </label>
+  <div class="grid two">
+    <label>Main Character Name<input name="character_name" required placeholder="Finn"></label>
+    <label>Setting<input name="setting" required placeholder="Enchanted forest"></label>
+  </div>
+  <div class="grid two">
+    <label>Story Tone
+      <select name="tone"><option>light-hearted</option><option>dramatic</option><option>poetic</option><option>funny</option><option>mysterious</option></select>
+    </label>
+    <label>Art Style
+      <select name="art_style"><option>comic book</option><option>anime</option><option>pixel art</option><option>realistic</option><option>watercolor</option></select>
+    </label>
+  </div>
+  <button class="primary" type="submit"><span class="button-text">✨ Generate My Comic</span><span class="loading-text">Generating… please wait</span></button>
+  <p class="hint">Image generation may take longer than text generation, especially on remote inference providers.</p>
+</form>
+
+<section class="info-grid">
+  <div class="card"><strong>1. Outline</strong><p>Gemini creates exactly five connected panels.</p></div>
+  <div class="card"><strong>2. Story</strong><p>Gemini expands each panel with narration, captions and dialogue.</p></div>
+  <div class="card"><strong>3. Images</strong><p>Hugging Face or local Diffusers creates the panel illustrations.</p></div>
+  <div class="card"><strong>4. PDF</strong><p>FPDF assembles everything into a downloadable comic.</p></div>
+</section>
+{% endblock %}
